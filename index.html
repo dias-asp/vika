@@ -1,32 +1,228 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Пример Теста</title>
+    <style>
+        /* Основные стили */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #start-screen {
+            display: none;
+        }
+        #question-screen {
+            display: none;
+        }
+        #end-screen {
+            display: none;
+        }
+
+        .active {
+            display: block !important;
+        }
+
+        .image {
+            margin: 20px auto;
+            width: 400px;
+            height: 800px;
+            background-color: #ddd;
+        }
+
+        .answers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        #start-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .answer-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .answer-button:hover {
+            background-color: #0056b3;
+        }
+
+        .answer-button:disabled {
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
-    <div id="welcome-screen" class="screen">
-        <h1>Welcome to the Test!</h1>
-        <button id="start-button">Start Test</button>
-    </div>
+<!-- Экран с приветствием -->
+<div id="start-screen" class="active">
+    <h1>Сейчас будет небольшой тест.</h1>
+    <h1>Тебе будет даваться фотография, нужно будет ответить когда она была сделана.</h1>
+    <h1>Не бойся ошибиться, за неправильные ответы не ругаю.</h1>
+    <button id="start-button">Я готова</button>
+</div>
 
-    <div id="test-screen" class="screen hidden">
-        <img id="question-image" src="" alt="Question Image">
-        <div id="button-container">
-            <button class="answer-button" id="button1"></button>
-            <button class="answer-button" id="button2"></button>
-            <button class="answer-button" id="button3"></button>
-            <button class="answer-button" id="button4"></button>
-        </div>
+<!-- Экран с тестом -->
+<div id="question-screen">
+    <div id="question-image" class="image"></div>
+    <h2 id="question-text">Здесь будет вопрос</h2>
+    <div class="answers">
+        <button class="answer-button">Вариант 1</button>
+        <button class="answer-button">Вариант 2</button>
+        <button class="answer-button">Вариант 3</button>
+        <button class="answer-button">Вариант 4</button>
     </div>
+</div>
 
-    <div id="result-screen" class="screen hidden">
-        <h1>Test Completed!</h1>
-        <button id="restart-button">Restart Test</button>
-    </div>
+<!-- Экран с завершением -->
+<div id="end-screen">
+    <h1>Я люблю тебя, золотце</h1>
+</div>
 
-    <script src="script.js"></script>
+<script>
+    /* Логика работы теста */
+
+    const startScreen = document.getElementById('start-screen');
+    const questionScreen = document.getElementById('question-screen');
+    const endScreen = document.getElementById('end-screen');
+    const startButton = document.getElementById('start-button');
+    const questionImage = document.getElementById('question-image');
+    const questionText = document.getElementById('question-text');
+    const answerButtons = document.querySelectorAll('.answer-button');
+    const img1 = document.createElement('img1');
+
+    const questions = [
+        {
+            image: "images/25_10.jpg", // Цвет
+            question: "В какой день это произошло?",
+            answers: ["25 октября", "25 сентября", "25 ноября", "25 декабря"],
+            correct: 0
+        },
+        {
+            image: "images/17_11.jpg", // Цвет
+            question: "В какой день это произошло?",
+            answers: ["1 ноября", "17 ноября", "25 ноября", "1 декабря"],
+            correct: 1
+        },
+        {
+            image: "images/4_12.jpg", // Цвет
+            question: "В какой день это произошло?",
+            answers: ["25 ноября", "20 октября", "4 декабря", "25 декабря"],
+            correct: 2
+        },
+        {
+            image: "images/5_12.jpg", // Цвет
+            question: "В какой день это произошло?",
+            answers: ["25 ноября", "15 декабря", "25 декабря", "5 декабря"],
+            correct: 3
+        },
+        {
+            image: "images/25_12.jpg", // Цвет
+            question: "В какой день это произошло?",
+            answers: ["25 декабря", "25 ноября", "1 января", "4 января"],
+            correct: 0
+        },
+        {
+            image: "images/27_12.jpg", // Цвет
+            question: "В какой день это произошло?",
+            answers: ["25 декабря", "27 декабря", "1 января", "4 января"],
+            correct: 1
+        },
+        {
+            image: "images/01_01.jpg", // Цвет
+            question: "В какой день это произошло?",
+            answers: ["31 декабря", "4 января", "1 января", "10 января"],
+            correct: 2
+        },
+        {
+            image: "images/02_01.jpg", // Цвет
+            question: "В какой день это произошло? (мы лепили)",
+            answers: ["1 января", "4 января", "10 января", "2 января"],
+            correct: 3
+        },
+        {
+            image: "images/03_01.jpg", // Цвет
+            question: "В какой день это произошло?",
+            answers: ["3 января", "4 января", "1 января", "10 января"],
+            correct: 0
+        },
+        {
+            image: "images/9_01.jpg", // Цвет
+            question: "В какой день это произошло? (мы красили)",
+            answers: ["5 января", "9 января", "4 января", "1 января"],
+            correct: 1
+        },
+        {
+            image: "images/18_01.jpg", // Цвет
+            question: "В какой день это произошло?",
+            answers: ["18 января", "18 января", "18 января", "18 января"],
+            correct: 0
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+
+    function showQuestion() {
+        if (currentQuestionIndex < questions.length) {
+            console.log(currentQuestionIndex);
+            const data = questions[currentQuestionIndex];
+            questionImage.style.backgroundImage = `url(${data.image})`;
+            questionImage.style.backgroundSize = 'cover';
+            questionImage.style.backgroundPosition = 'center';
+            // questionImage.style.setProperty('background-color', data.image.replace('background-color:', '').trim());
+            questionText.textContent = data.question;
+
+            answerButtons.forEach((button, index) => {
+                console.log(button);
+                button.textContent = data.answers[index];
+                button.disabled = false;
+                button.style.visibility = "visible";
+                button.dataset.correct = (index === data.correct || currentQuestionIndex === questions.length - 1).toString();
+            });
+
+        } else {
+            questionScreen.classList.remove('active');
+            endScreen.classList.add('active');
+        }
+
+    }
+    answerButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const isCorrect = button.dataset.correct === 'true';
+            if (isCorrect) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                button.style.visibility = 'hidden';
+            }
+        });
+    });
+
+    startButton.addEventListener('click', () => {
+        // startButton.classList.remove('answer-button');
+        startScreen.classList.remove('active');
+        questionScreen.classList.add('active');
+        showQuestion();
+    });
+
+
+
+</script>
 </body>
 </html>

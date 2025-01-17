@@ -19,9 +19,11 @@ document.getElementById('start-button').addEventListener('click', startTest);
 document.getElementById('restart-button').addEventListener('click', restartTest);
 
 function startTest() {
+    console.log('Starting test...');
     document.getElementById('welcome-screen').classList.add('hidden');
     document.getElementById('test-screen').classList.remove('hidden');
     loadQuestion();
+    console.log('Test started!');
 }
 
 function loadQuestion() {

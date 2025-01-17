@@ -8,11 +8,19 @@ body {
     display: none;
 }
 
-.hidden {
+.hidden{
+    display: none;
+}
+
+.screen_hidden {
     display: none;
 }
 
 #test-screen {
+    display: block;
+}
+
+#welcome-screen{
     display: block;
 }
 
