@@ -3,42 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Website</title>
+    <title>Test Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Personal Website</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About Me</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div id="welcome-screen" class="screen">
+        <h1>Welcome to the Test!</h1>
+        <button id="start-button">Start Test</button>
+    </div>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Hello! I'm [Your Name], a [Your Profession/Interest]. I love [Your Interests].</p>
-    </section>
+    <div id="test-screen" class="screen hidden">
+        <img id="question-image" src="" alt="Question Image">
+        <div id="button-container">
+            <button class="answer-button" id="button1"></button>
+            <button class="answer-button" id="button2"></button>
+            <button class="answer-button" id="button3"></button>
+            <button class="answer-button" id="button4"></button>
+        </div>
+    </div>
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <ul>
-            <li><strong>Project 1:</strong> Description of project 1.</li>
-            <li><strong>Project 2:</strong> Description of project 2.</li>
-            <li><strong>Project 3:</strong> Description of project 3.</li>
-        </ul>
-    </section>
+    <div id="result-screen" class="screen hidden">
+        <h1>Test Completed!</h1>
+        <button id="restart-button">Restart Test</button>
+    </div>
 
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <p>You can reach me at: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-    </section>
-
-    <footer>
-        <p>&copy; 2023 [Your Name]. All rights reserved.</p>
-    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
